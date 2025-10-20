@@ -21,7 +21,6 @@ type ECCSigner struct {
 	keyPair *ECCKeyPair
 }
 
-// TODO: implement RSA and ECDSA signing ...
 func NewRSASigner(keyPair *RSAKeyPair) *RSASigner {
 	return &RSASigner{keyPair}
 }

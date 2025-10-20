@@ -7,13 +7,13 @@ import (
 	"github.com/fiskaly/coding-challenges/signing-service-challenge/domain"
 )
 
-// TODO: in-memory persistence ...
 type IDeviceRepository interface {
 	CreateDevice(device *domain.Device) error
 	CountDevices() int
 	GetDevice(id string) (*domain.Device, error)
 	IncrementSignatureCounter(deviceID string) error
 	GetDeviceMutex(deviceID string) *sync.Mutex
+	GetAllDevices() ([]*domain.Device, error)
 }
 
 type DeviceRepository struct {
@@ -78,4 +78,15 @@ func (m *DeviceRepository) GetDeviceMutex(deviceID string) *sync.Mutex {
 		m.devicesMutexes[deviceID] = &sync.Mutex{}
 	}
 	return m.devicesMutexes[deviceID]
+}
+
+func (m *DeviceRepository) GetAllDevices() ([]*domain.Device, error) {
+	m.mutex.RLock()
+	defer m.mutex.RUnlock()
+
+	devices := make([]*domain.Device, 0, len(m.devices))
+	for _, device := range m.devices {
+		devices = append(devices, device)
+	}
+	return devices, nil
 }

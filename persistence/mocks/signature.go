@@ -63,6 +63,21 @@ func (mr *MockISignatureRepositoryMockRecorder) GetAllSignatures() *gomock.Call 
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAllSignatures", reflect.TypeOf((*MockISignatureRepository)(nil).GetAllSignatures))
 }
 
+// GetAllSignaturesByDeviceID mocks base method.
+func (m *MockISignatureRepository) GetAllSignaturesByDeviceID(deviceID string) ([]*domain.Signature, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetAllSignaturesByDeviceID", deviceID)
+	ret0, _ := ret[0].([]*domain.Signature)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetAllSignaturesByDeviceID indicates an expected call of GetAllSignaturesByDeviceID.
+func (mr *MockISignatureRepositoryMockRecorder) GetAllSignaturesByDeviceID(deviceID interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAllSignaturesByDeviceID", reflect.TypeOf((*MockISignatureRepository)(nil).GetAllSignaturesByDeviceID), deviceID)
+}
+
 // GetLatestSignature mocks base method.
 func (m *MockISignatureRepository) GetLatestSignature(deviceID string) (*domain.Signature, error) {
 	m.ctrl.T.Helper()

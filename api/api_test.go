@@ -38,7 +38,7 @@ var _ = Describe("Device Management", func() {
 		It("should create a signature device", func() {
 			mockDeviceRepository.EXPECT().CreateDevice(gomock.Any()).Return(nil)
 
-			req := httptest.NewRequest("POST", "/api/v0/create-signature-device", strings.NewReader(`{"algorithm": "RSA", "label": "test-device"}`))
+			req := httptest.NewRequest("POST", "/api/v0/device", strings.NewReader(`{"algorithm": "RSA", "label": "test-device"}`))
         	req.Header.Set("Content-Type", "application/json")
 
 			w := httptest.NewRecorder()
@@ -75,17 +75,24 @@ var _ = Describe("Transaction Signing", func() {
 				ID:               "test-device",
 				Algorithm:        "RSA",
 				PublicKey:        `-----BEGIN RSA_PUBLIC_KEY-----
-MEgCQQDfWkuaBhDcpaMXUz4BJbthqp0HPyxQzyimYILXeItVoTO/hMMKS/GO+fKQ
-j8V8jVirJFcyGA5JbUK3gX5LtPbFAgMBAAE=
+MIGJAoGBAM/tvE/dja6Y8T8TbYSZHpve3ytzv1yiDwhVlF7avZRdiFRU7srNkaRR
+8r746jm/VYYA5rLftyhteEHzZHZgXKHjS+ehavTAtFe4BEcUsk7PudebgD+cFC4E
+F9Sa+aRvyTn0Rg3NFtf9s+MiixfdkDfybuqQ8lN+SqK7uOMqpnFJAgMBAAE=
 -----END RSA_PUBLIC_KEY-----`,
 				PrivateKey:       `-----BEGIN RSA_PRIVATE_KEY-----
-MIIBOgIBAAJBAN9aS5oGENyloxdTPgElu2GqnQc/LFDPKKZggtd4i1WhM7+EwwpL
-8Y758pCPxXyNWKskVzIYDkltQreBfku09sUCAwEAAQJAGTvmHTdwucED8UtwDqig
-6DqipZIzU0joVo3CUo41rb2D1EpspD9LX48k6wzbKPSBz48TgPHp2h/dBgeYjNDz
-UQIhAOLhvrgJT/KluKl33myhN+FGsqqOYTk39pM0MatuT9r1AiEA/ASZ1TeHOVst
-nQCrztCk/NtyD6kr1OKoxUgL7L8+6pECIDRaqVroczVn/nPEwGPK1A089i+bSV4d
-xt1zFt8bRnwdAiEAgpozyn5DUqMAyWtunfgceHmU667E60cnJU3H+EHH7jECIHMW
-n7VMKQ2Z3tOM9tdxCIdYEBxeuWuFWvREyMTKbl8t
+MIICXQIBAAKBgQDP7bxP3Y2umPE/E22EmR6b3t8rc79cog8IVZRe2r2UXYhUVO7K
+zZGkUfK++Oo5v1WGAOay37cobXhB82R2YFyh40vnoWr0wLRXuARHFLJOz7nXm4A/
+nBQuBBfUmvmkb8k59EYNzRbX/bPjIosX3ZA38m7qkPJTfkqiu7jjKqZxSQIDAQAB
+AoGAAWJve0Iyo2Toi92DVCyf6hcr5lOhrAfZJGRfVdoMZ2v3F+MfWmQK82BOxsqb
+NUbEpWbvDqEWQr6TjZJoKuvGG/bGMCX3yt3KNEh53IqaykKjQLfhZnu7zNRJwBUD
+x2heTYxDaDiD9ZyZs1lqg4cpIuConKOCJTso02p30MtKzfUCQQDwWYcUaBn4Eua2
+FvGsmTrhOhYdrFHqU9C56xfGMnlHLJs4behCa2n6/2O2Ouk5a6TGTM3rMWiCC+Vi
+eNRGDUlrAkEA3XfFIq8QAbgBu9oN+CviZy5R87e8p26JXwtDOAvrIO38fUfpHkLu
+999C+d0ZN37wnQWwRkIWCYYbfVnC+QzZGwJBAIdrGeWQhdk05RKBOOdzai5OKPnN
+BlZNpROrdriv5Y8Jfec8XZlWpd7KmCaraI52rN8hlP/H1cc35qUlyQwzHkMCQQC2
+Z0PVSiw7ziqXZoPk53gEFXFn8ueNWwwHXMZTLfXNXFV9dbG5u9UIEDkghAqV25Yf
+LaU+aIWv+GVBu6FK8FsLAkAYlnxMV1l6AEKbHbGWgK38gL6+vQ6jk4Heo7DJS3fQ
+pAQzbR1h7p39hZYB5AGCnslhokTBQiuGzUts9VVGqZ38
 -----END RSA_PRIVATE_KEY-----`,
 				SignatureCounter: 0,
 				Label:           "test-device",

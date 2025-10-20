@@ -1,0 +1,288 @@
+{
+	"info": {
+		"_postman_id": "891e857a-9e8e-46cb-9210-67142dee47c9",
+		"name": "fiskaly-test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32561428"
+	},
+	"item": [
+		{
+			"name": "Create Signature Device",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"algorithm\":\"RSA\",\n    \"label\":\"PC2\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v0/device",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"device"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"algorithm\":\"ECC\",\n    \"label\":\"PC2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v0/create-signature-device",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v0",
+								"create-signature-device"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 19 Oct 2025 13:07:27 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "382"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain; charset=utf-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"data\": {\n    \"id\": \"fff2ec8f-62e8-42d6-a1f3-26df12720d56\",\n    \"algorithm\": \"ECC\",\n    \"public_key\": \"-----BEGIN PUBLIC_KEY-----\\nMHYwEAYHKoZIzj0CAQYFK4EEACIDYgAETKriwGjIYC8zfK0dxHaMS1waj5RJkZCv\\nJRPUJirbAvjKnSt5gHkEpzQa0kWHZVtPDo++AWEd7qAWM72mvkeM/PaLFbgeVKmQ\\nJ8+nsDSKJD/IsCAuBQ420sJdzs7qkUtw\\n-----END PUBLIC_KEY-----\\n\",\n    \"signature_counter\": 0,\n    \"label\": \"PC2\"\n  }\n}"
+				}
+			]
+		},
+		{
+			"name": "Sign Transaction",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"device_id\":\"4356e3f6-a5d2-46a1-8ce4-6d7c080955f2\",\n    \"data\":\"hello21\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v0/sign-transaction",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"sign-transaction"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"device_id\":\"a9a45c1c-e6d5-4352-8fd3-93838d5f96d3\",\n    \"data\":\"hello21\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v0/sign-transaction",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v0",
+								"sign-transaction"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 20 Oct 2025 01:12:54 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "260"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain; charset=utf-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"data\": {\n    \"signature\": \"MGYCMQCoriRn3rigjO0w4aBW+qbNUrMP/T5UWQ+S7tdOy18lyjrK6Z/oaN5nFLzOa7QWXlsCMQCQsN0cbxXXsZWvxvfBJRR3N/LkoeBTJ3PXKoFrWheH4iXtVoOLohf22cQqh429oOE=\",\n    \"signed_data\": \"0_hello21_YTlhNDVjMWMtZTZkNS00MzUyLThmZDMtOTM4MzhkNWY5NmQz\"\n  }\n}"
+				}
+			]
+		},
+		{
+			"name": "Show all signatures by device",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"device_id\":\"f5a157f1-da8b-4b2a-aef2-63d028c10043\",\n    \"label\":\"PC2\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v0/signatures?device_id=4356e3f6-a5d2-46a1-8ce4-6d7c080955f2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"signatures"
+					],
+					"query": [
+						{
+							"key": "device_id",
+							"value": "4356e3f6-a5d2-46a1-8ce4-6d7c080955f2"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"device_id\":\"f5a157f1-da8b-4b2a-aef2-63d028c10043\",\n    \"label\":\"PC2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v0/signatures?device_id=7a1ebc3e-918e-4d75-9cea-90f63606bd27",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v0",
+								"signatures"
+							],
+							"query": [
+								{
+									"key": "device_id",
+									"value": "7a1ebc3e-918e-4d75-9cea-90f63606bd27"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 20 Oct 2025 01:41:02 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "984"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain; charset=utf-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"data\": [\n    {\n      \"id\": \"5695060a-bf3a-4de6-bf44-7e01a9f49cc3\",\n      \"device_id\": \"7a1ebc3e-918e-4d75-9cea-90f63606bd27\",\n      \"signature_counter\": 0,\n      \"signature_value\": \"MGUCMQDsFCVQK/FEL9UIz+G90u6TBfs0tfAEnxEHO8VTfyGK4C93Gi7VV7eENcvtdm8BpwgCMAO+bdE9YtOr17YJRHYtgt9VOAbMKsD2OdB6XEjAera1zcpA6XYLqjJ50D8PzhJ9rQ==\"\n    },\n    {\n      \"id\": \"3c76525b-bbe0-43d5-b697-f190daef9811\",\n      \"device_id\": \"7a1ebc3e-918e-4d75-9cea-90f63606bd27\",\n      \"signature_counter\": 1,\n      \"signature_value\": \"MGUCMBTe9dBGBg/oOfGaC4mU1JAiZvnbTZZH2JBDl+3CUybVOiC2NEbs/pmhOH6mlOSiUwIxAPaCQgzmptEySl8yKZntOsuo7Wtru1uYkeua/lcyX5QGMd/F/6N6QyCCH/smxHNeQg==\"\n    },\n    {\n      \"id\": \"f8d2a505-9751-485e-a7fa-7f01f4988fe4\",\n      \"device_id\": \"7a1ebc3e-918e-4d75-9cea-90f63606bd27\",\n      \"signature_counter\": 2,\n      \"signature_value\": \"MGYCMQCgKuSeldO7HIgXZGluxWl2hS7JtySf9NOen+vWjdw0TJqFeY1JJanr6CP4AJl0FacCMQC+3klcxelSzyiZEtTvzblD6yEMxMq7M9giME6GBDXi7PwYcqfCK/q+iViyqJAcWqg=\"\n    }\n  ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Show all devices",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"device_id\":\"f5a157f1-da8b-4b2a-aef2-63d028c10043\",\n    \"label\":\"PC2\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v0/devices",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v0",
+						"devices"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

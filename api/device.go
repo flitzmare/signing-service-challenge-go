@@ -14,7 +14,7 @@ type CreateDeviceRequest struct {
     Label     string `json:"label"`
 }
 
-type CreateDeviceResponse struct {
+type DeviceResponse struct {
     ID               string `json:"id"`
     Algorithm        string `json:"algorithm"`
     PublicKey        string `json:"public_key"`
@@ -22,7 +22,6 @@ type CreateDeviceResponse struct {
     Label           string `json:"label"`
 }
 
-// TODO: REST endpoints ...
 func (s *Server) CreateSignatureDevice(response http.ResponseWriter, request *http.Request) {
 	if request.Method != http.MethodPost {
 		WriteErrorResponse(response, http.StatusMethodNotAllowed, []string{
@@ -110,15 +109,44 @@ func (s *Server) CreateSignatureDevice(response http.ResponseWriter, request *ht
 		return
 	}
 
-	WriteAPIResponse(response, http.StatusCreated, DeviceResponse(&device))
+	WriteAPIResponse(response, http.StatusCreated, wrapDeviceResponse(&device))
 }
 
-func DeviceResponse(device *domain.Device) CreateDeviceResponse {
-	return CreateDeviceResponse{
+func wrapDeviceResponse(device *domain.Device) DeviceResponse {
+	return DeviceResponse{
 		ID: device.ID,
 		Algorithm: device.Algorithm,
 		PublicKey: device.PublicKey,
 		SignatureCounter: device.SignatureCounter,
 		Label: device.Label,
 	}
+}
+
+func (s *Server) ShowAllDevices(response http.ResponseWriter, request *http.Request) {
+	if request.Method != http.MethodGet {
+		WriteErrorResponse(response, http.StatusMethodNotAllowed, []string{
+			http.StatusText(http.StatusMethodNotAllowed),
+		})
+		return
+	}
+	
+	devices, err := s.DeviceRepository.GetAllDevices()
+	if err != nil {
+		WriteErrorResponse(response, http.StatusInternalServerError, []string{
+			err.Error(),
+		})
+		return
+	}
+
+	deviceResponses := deviceListResponse(devices)
+
+	WriteAPIResponse(response, http.StatusOK, deviceResponses)
+}
+
+func deviceListResponse(devices []*domain.Device) []DeviceResponse {
+	deviceResponses := make([]DeviceResponse, 0, len(devices))
+	for _, device := range devices {
+		deviceResponses = append(deviceResponses, wrapDeviceResponse(device))
+	}
+	return deviceResponses
 }

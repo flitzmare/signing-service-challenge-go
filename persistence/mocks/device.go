@@ -63,6 +63,21 @@ func (mr *MockIDeviceRepositoryMockRecorder) CreateDevice(device interface{}) *g
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateDevice", reflect.TypeOf((*MockIDeviceRepository)(nil).CreateDevice), device)
 }
 
+// GetAllDevices mocks base method.
+func (m *MockIDeviceRepository) GetAllDevices() ([]*domain.Device, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetAllDevices")
+	ret0, _ := ret[0].([]*domain.Device)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetAllDevices indicates an expected call of GetAllDevices.
+func (mr *MockIDeviceRepositoryMockRecorder) GetAllDevices() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAllDevices", reflect.TypeOf((*MockIDeviceRepository)(nil).GetAllDevices))
+}
+
 // GetDevice mocks base method.
 func (m *MockIDeviceRepository) GetDevice(id string) (*domain.Device, error) {
 	m.ctrl.T.Helper()

@@ -11,6 +11,7 @@ type ISignatureRepository interface {
 	CreateSignature(signature *domain.Signature) error
 	GetLatestSignature(deviceID string) (*domain.Signature, error)
 	GetAllSignatures() ([]*domain.Signature, error)
+	GetAllSignaturesByDeviceID(deviceID string) ([]*domain.Signature, error)
 }
 
 type SignatureRepository struct {
@@ -63,5 +64,18 @@ func (s *SignatureRepository) GetAllSignatures() ([]*domain.Signature, error) {
 		signatures = append(signatures, signature)
 	}
 
+	return signatures, nil
+}
+
+func (s *SignatureRepository) GetAllSignaturesByDeviceID(deviceID string) ([]*domain.Signature, error) {
+	s.mutex.RLock()
+	defer s.mutex.RUnlock()
+
+	signatures := make([]*domain.Signature, 0, len(s.signatures))
+	for _, signature := range s.signatures {
+		if signature.DeviceID == deviceID {
+			signatures = append(signatures, signature)
+		}
+	}
 	return signatures, nil
 }

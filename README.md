@@ -99,6 +99,7 @@ For more details, you can refer to a Postman collection.
  - Single process; no horizontal scaling or distributed locking is implemented.
  - No persistence beyond process lifetime, restarting wipes data.
  - No authentication, authorization, rate limiting, or audit logging.
+ - No environment variables, hardcoded localhost port 8080.
 
 ### Approximate time spent
 
